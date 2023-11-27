@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeFragment">
 
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.uf1_proyecto.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_activitiesFragment"
+            app:destination="@id/activitiesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/activitiesFragment"
+        android:name="com.example.uf1_proyecto.ActivitiesFragment"
+        android:label="ActivitiesFragment" >
+        <action
+            android:id="@+id/action_activitiesFragment_to_creationTaskFragment"
+            app:destination="@id/creationTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/creationTaskFragment"
+        android:name="com.example.uf1_proyecto.CreationTaskFragment"
+        android:label="CreationTaskFragment" >
+        <action
+            android:id="@+id/action_creationTaskFragment_to_activitiesFragment"
+            app:destination="@id/activitiesFragment" />
+    </fragment>
 </navigation>

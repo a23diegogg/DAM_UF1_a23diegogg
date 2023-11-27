@@ -5,20 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 
 
 class ActivitiesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_activities, container, false)
+        val view= inflater.inflate(R.layout.fragment_activities, container, false)
+
+        val btn_createTask =view.findViewById<Button>(R.id.btn_createTask)
+        btn_createTask.setOnClickListener {
+            findNavController().navigate(R.id.action_activitiesFragment_to_creationTaskFragment)
+        }
+        return view
     }
 
 
