@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 
@@ -21,6 +22,15 @@ class CreationTaskFragment : Fragment() {
         btn_addTask.setOnClickListener {
             findNavController().navigate(R.id.action_creationTaskFragment_to_activitiesFragment)
         }
+        val addTaskButton: Button = view.findViewById(R.id.btn_addTask)
+        addTaskButton.setOnClickListener {
+            val tasksFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.activitiesFragment) as? ActivitiesFragment
+            val taskNameEditText: EditText = view.findViewById(R.id.taskName)
+            val newTask = taskNameEditText.text.toString()
+
+            tasksFragment?.addto(newTask)
+        }
+
         return view
     }
 

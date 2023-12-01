@@ -8,9 +8,31 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
 class ActivitiesFragment : Fragment() {
+
+    private lateinit var myAdapter: MyAdapter
+    private val taskList = mutableListOf<String>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Inicializa el adaptador con la lista vacía
+        myAdapter = MyAdapter(taskList)
+        recyclerView.adapter = myAdapter
+
+        fun addTaskToList(task: String) {
+            taskList.add(task)
+            myAdapter.notifyItemInserted(taskList.size - 1)
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
