@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 
 class CreationTaskFragment : Fragment() {
+    val sharedViewModel: TasksViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,13 +25,16 @@ class CreationTaskFragment : Fragment() {
         btn_addTask.setOnClickListener {
             findNavController().navigate(R.id.action_creationTaskFragment_to_activitiesFragment)
         }
-        val addTaskButton: Button = view.findViewById(R.id.btn_addTask)
-        addTaskButton.setOnClickListener {
-            val tasksFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.activitiesFragment) as? ActivitiesFragment
-            val taskNameEditText: EditText = view.findViewById(R.id.taskName)
-            val newTask = taskNameEditText.text.toString()
+        btn_addTask.setOnClickListener {
+            val taskName = view.findViewById<EditText>(R.id.taskName).text.toString()
+            val taskDate = view.findViewById<EditText>(R.id.taskDate).text.toString()
+            val taskDescription = view.findViewById<EditText>(R.id.taskDescription).text.toString()
 
-            tasksFragment?.addto(newTask)
+            val newTask = Task(taskName, taskDate, taskDescription)
+            sharedViewModel.tasksList.add(newTask)
+
+            val navController = findNavController()
+            navController.navigate(R.id.action_creationTaskFragment_to_activitiesFragment)
         }
 
         return view

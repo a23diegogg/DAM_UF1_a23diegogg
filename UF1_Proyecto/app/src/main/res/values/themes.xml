@@ -1,9 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Base application theme. -->
     <style name="Base.Theme.UF1_Proyecto" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.UF1_Proyecto" parent="Base.Theme.UF1_Proyecto" />
+    <!-- AppTheme que hereda de la base -->
+    <style name="Theme.UF1_Proyecto" parent="Base.Theme.UF1_Proyecto">
+        <!-- Definición de atributos específicos de tu tema -->
+    </style>
+
+    <!-- Estilos para fragmentos -->
+    <style name="ThemeWhite" parent="Theme.UF1_Proyecto">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="ThemeGrey" parent="Theme.UF1_Proyecto">
+        <item name="android:windowBackground">@color/gris</item>
+    </style>
+    <style name="ThemeBlack" parent="Theme.UF1_Proyecto">
+        <item name="android:windowBackground">@color/negro</item>
+    </style>
+
 </resources>

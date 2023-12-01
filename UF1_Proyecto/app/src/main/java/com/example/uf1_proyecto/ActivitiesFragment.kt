@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,23 +15,21 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class ActivitiesFragment : Fragment() {
-
-    private lateinit var myAdapter: MyAdapter
-    private val taskList = mutableListOf<String>()
-
+    private lateinit var adapter: TasksAdapter
+    private val sharedViewModel: TasksViewModel by activityViewModels()
+;
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        // Obtener los datos de la nueva tarea
+        val newTaskName = arguments?.getString("taskName")
+        val newTaskDate = arguments?.getString("taskDate")
+        val newTaskDescription = arguments?.getString("taskDescription")
 
-        // Inicializa el adaptador con la lista vacía
-        myAdapter = MyAdapter(taskList)
-        recyclerView.adapter = myAdapter
-
-        fun addTaskToList(task: String) {
-            taskList.add(task)
-            myAdapter.notifyItemInserted(taskList.size - 1)
+        if (newTaskName != null && newTaskDate != null && newTaskDescription != null) {
+            val newTask = Task(newTaskName, newTaskDate, newTaskDescription)
+            sharedViewModel.tasksList.add(newTask)
+            adapter.notifyDataSetChanged()
         }
 
     }
@@ -38,15 +38,18 @@ class ActivitiesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_activities, container, false)
+        val view = inflater.inflate(R.layout.fragment_activities, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val btn_createTask =view.findViewById<Button>(R.id.btn_createTask)
+        adapter = TasksAdapter(sharedViewModel.tasksList)
+        recyclerView.adapter = adapter
+
+        val btn_createTask = view.findViewById<Button>(R.id.btn_createTask)
         btn_createTask.setOnClickListener {
             findNavController().navigate(R.id.action_activitiesFragment_to_creationTaskFragment)
         }
+
         return view
     }
-
-
 }
