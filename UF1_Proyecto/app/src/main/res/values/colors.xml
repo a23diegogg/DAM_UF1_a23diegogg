@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gris">#CACACA</color>
     <color name="negro">#000000</color>
+    <color name="rojo">#EC8888</color>
 
 </resources>

@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_welcomeFragment_to_activitiesFragment"
             app:destination="@id/activitiesFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_creationTaskFragment"
+            app:destination="@id/creationTaskFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/activitiesFragment"
@@ -21,6 +27,12 @@
         <action
             android:id="@+id/action_activitiesFragment_to_creationTaskFragment"
             app:destination="@id/creationTaskFragment" />
+        <action
+            android:id="@+id/action_activitiesFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+        <action
+            android:id="@+id/action_activitiesFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/creationTaskFragment"
@@ -29,5 +41,25 @@
         <action
             android:id="@+id/action_creationTaskFragment_to_activitiesFragment"
             app:destination="@id/activitiesFragment" />
+        <action
+            android:id="@+id/action_creationTaskFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+        <action
+            android:id="@+id/action_creationTaskFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.uf1_proyecto.CalendarFragment"
+        android:label="CalendarFragment" >
+        <action
+            android:id="@+id/action_calendarFragment_to_creationTaskFragment"
+            app:destination="@id/creationTaskFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_activitiesFragment"
+            app:destination="@id/activitiesFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
 </navigation>

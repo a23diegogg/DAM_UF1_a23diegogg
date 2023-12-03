@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class ActivitiesFragment : Fragment() {
@@ -25,12 +26,17 @@ class ActivitiesFragment : Fragment() {
         val newTaskName = arguments?.getString("taskName")
         val newTaskDate = arguments?.getString("taskDate")
         val newTaskDescription = arguments?.getString("taskDescription")
+        val bottomNavigationView = view.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val btn_createTask = view.findViewById<Button>(R.id.btn_createTask)
+
+
 
         if (newTaskName != null && newTaskDate != null && newTaskDescription != null) {
             val newTask = Task(newTaskName, newTaskDate, newTaskDescription)
             sharedViewModel.tasksList.add(newTask)
             adapter.notifyDataSetChanged()
         }
+
 
     }
 

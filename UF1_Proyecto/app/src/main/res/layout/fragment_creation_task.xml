@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/gris">
+    android:background="@color/gris"
+    android:layout_weight="1">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,6 +17,9 @@
         android:textSize="30dp"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold"></TextView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,18 +56,26 @@
                 android:id="@+id/taskDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="10dp"
                 android:hint="xx/xx/xx"
-                android:maxLength="8"
-                android:digits="0123456789/"
+                android:maxLength="10"
+                android:digits=""
                 android:inputType="number">
             </EditText>
+            <Button
+                android:id="@+id/taskDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date"
+                android:layout_marginLeft="15dp"
+                android:textSize="12dp"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="70dp">
+            android:layout_marginTop="65dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,13 +97,21 @@
 
 
     </LinearLayout>
-    <Button
-        android:id="@+id/btn_addTask"
+</ScrollView>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addTask"
-        android:layout_gravity="end"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="50dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="200dp"
+        >
+        <Button
+            android:id="@+id/btn_addTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/addTask"
+
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

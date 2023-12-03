@@ -9,4 +9,9 @@
     <string name="task">Tarea...</string>
     <string name="addTask">Añadir Tarea</string>
     <string name="createTask">Crear Tarea</string>
+    <string name="home">Home</string>
+    <string name="calendar">Calendario</string>
+    <string name="tasks">Tareas</string>
+    <string name="addtasks">Añadir Tareas</string>
+    <string name="clearDB">Borrar BD</string>
 </resources>
