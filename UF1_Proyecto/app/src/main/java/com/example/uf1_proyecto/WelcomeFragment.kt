@@ -16,16 +16,11 @@ class WelcomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_welcome, container, false)
-        val clearDBButton = view.findViewById<Button>(R.id.clearDB)
 
 
         val btn_start = view.findViewById<Button>(R.id.btn_start)
         btn_start.setOnClickListener {
             findNavController().navigate(R.id.action_welcomeFragment_to_activitiesFragment)
-        }
-        clearDBButton.setOnClickListener {
-            val dbHelper = miSQLiteHelper(requireContext())
-            dbHelper.deleteAllTasks()
         }
         return view
     }

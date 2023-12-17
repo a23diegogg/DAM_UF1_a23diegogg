@@ -17,12 +17,17 @@ class CreationTaskFragment : Fragment() {
     val sharedViewModel: TasksViewModel by activityViewModels()
     private lateinit var dbHelper: miSQLiteHelper
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dbHelper = miSQLiteHelper(requireContext()) // Inicialización de dbHelper
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view= inflater.inflate(R.layout.fragment_creation_task, container, false)
+
         dbHelper = miSQLiteHelper(requireContext()) // Pasar el contexto aquí
 
         val btn_addTask = view.findViewById<Button>(R.id.btn_addTask)

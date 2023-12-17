@@ -8,6 +8,8 @@ import androidx.core.content.contentValuesOf
 
 class miSQLiteHelper(context: Context): SQLiteOpenHelper(
     context, "tasks.db", null,1) {
+    private var database: SQLiteDatabase? = null
+
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(
             "CREATE TABLE tasks (" +
@@ -23,68 +25,87 @@ class miSQLiteHelper(context: Context): SQLiteOpenHelper(
             db?.execSQL("ALTER TABLE tasks ADD COLUMN priority INTEGER DEFAULT 0")
         }
     }
+    private fun openDatabaseWritable() {
+        database = writableDatabase
+    }
+
+    private fun openDatabaseReadable() {
+        database = readableDatabase
+    }
+
+    private fun closeDatabase() {
+        database?.close()
+    }
+
     fun addTask(name: String, date: String, description: String) {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put("taskName", name)
-            put("taskDate", date)
-            put("taskDescription", description)
+        openDatabaseWritable()
+        database?.apply {
+
+            val values = ContentValues().apply {
+                put("taskName", name)
+                put("taskDate", date)
+                put("taskDescription", description)
+            }
+            insert("tasks", null, values)
         }
-        db.insert("tasks", null, values)
-        db.close()
     }
     fun getAllTasks(): List<Task> {
         val tasksList = mutableListOf<Task>()
-        val db = readableDatabase
-        val cursor = db.rawQuery("SELECT * FROM tasks", null)
+        openDatabaseReadable()
+        database?.apply {
+            val cursor = rawQuery("SELECT * FROM tasks", null)
 
-        if (cursor.moveToFirst()) {
-            val idColumnIndex = cursor.getColumnIndex("id")
-            val taskNameColumnIndex = cursor.getColumnIndex("taskName")
-            val taskDateColumnIndex = cursor.getColumnIndex("taskDate")
-            val taskDescriptionColumnIndex = cursor.getColumnIndex("taskDescription")
+            if (cursor.moveToFirst()) {
+                val idColumnIndex = cursor.getColumnIndex("id")
+                val taskNameColumnIndex = cursor.getColumnIndex("taskName")
+                val taskDateColumnIndex = cursor.getColumnIndex("taskDate")
+                val taskDescriptionColumnIndex = cursor.getColumnIndex("taskDescription")
 
-            do {
-                val taskId = cursor.getInt(idColumnIndex)
-                val taskName = cursor.getString(taskNameColumnIndex)
-                val taskDate = cursor.getString(taskDateColumnIndex)
-                val taskDescription = cursor.getString(taskDescriptionColumnIndex)
+                do {
+                    val taskId = cursor.getInt(idColumnIndex)
+                    val taskName = cursor.getString(taskNameColumnIndex)
+                    val taskDate = cursor.getString(taskDateColumnIndex)
+                    val taskDescription = cursor.getString(taskDescriptionColumnIndex)
 
-                val task = Task(taskName, taskDate, taskDescription)
-                tasksList.add(task)
-            } while (cursor.moveToNext())
+                    val task = Task(taskName, taskDate, taskDescription)
+                    tasksList.add(task)
+                } while (cursor.moveToNext())
+            }
+
+            cursor.close()
         }
-
-        cursor.close()
-        db.close()
-
         return tasksList
     }
     fun updateTask(taskId: Int, updatedTask: Task) {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put("taskName", updatedTask.taskName)
-            put("taskDate", updatedTask.taskDate)
-            put("taskDescription", updatedTask.taskDescription)
+        openDatabaseWritable()
+        database?.apply {
+            val values = ContentValues().apply {
+                put("taskName", updatedTask.taskName)
+                put("taskDate", updatedTask.taskDate)
+                put("taskDescription", updatedTask.taskDescription)
+            }
+            update("tasks", values, "id = ?", arrayOf(taskId.toString()))
         }
-        db.update("tasks", values, "id = ?", arrayOf(taskId.toString()))
-        db.close()
     }
     fun deleteTaskByColumnValue(columnName: String, columnValue: String) {
-        val db = writableDatabase
-        db.execSQL("DELETE FROM tasks WHERE $columnName = '$columnValue'")
-        db.close()
+        openDatabaseWritable()
+        database?.apply {
+            execSQL("DELETE FROM tasks WHERE $columnName = '$columnValue'")
+        }
     }
 
     fun deleteTaskByTaskName(taskName: String) {
-        val db = writableDatabase
-        db.delete("tasks", "taskName = ?", arrayOf(taskName))
-        db.close()
+        openDatabaseWritable()
+        database?.apply {
+            delete("tasks", "taskName = ?", arrayOf(taskName))
+        }
     }
+
     fun deleteAllTasks() {
-        val db = writableDatabase
-        db.execSQL("DELETE FROM tasks")
-        db.close()
+        openDatabaseWritable()
+        database?.apply {
+            execSQL("DELETE FROM tasks")
+        }
     }
 
 

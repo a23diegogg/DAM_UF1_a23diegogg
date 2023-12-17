@@ -13,7 +13,7 @@ class TasksAdapter(private val tasks: MutableList<Task>) : RecyclerView.Adapter<
         val taskNameTextView: TextView = itemView.findViewById(R.id.taskNameTextView)
         val taskDateTextView: TextView = itemView.findViewById(R.id.taskDateTextView)
         val taskDescriptionTextView: TextView = itemView.findViewById(R.id.taskDescriptionTextView)
-        val deleteTaskButton: Button = itemView.findViewById(R.id.deleteTaskButton) // Asegúrate de tener el botón en tu layout
+        val deleteTaskButton: Button = itemView.findViewById(R.id.deleteTaskButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {

@@ -17,6 +17,12 @@ class CalendarFragment : Fragment() {
         val view= inflater.inflate(R.layout.fragment_calendar, container, false)
 
 
+        val clearDBButton = view.findViewById<Button>(R.id.clearDB)
+        clearDBButton.setOnClickListener {
+            val dbHelper = miSQLiteHelper(requireContext())
+            dbHelper.deleteAllTasks()
+        }
+
         return view
     }
 
